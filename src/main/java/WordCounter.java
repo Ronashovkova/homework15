@@ -8,7 +8,7 @@ public class WordCounter {
     File file = new File(Objects.requireNonNull(WordCounter.class.getClassLoader().getResource("lyrics.txt")).getFile());
     private String input;
     private Set<String> shortWords = new LinkedHashSet<>();
-
+    private static final int SMALL_WORD_LENGTH = 3;
     {
         try {
             input = new String(Files.readAllBytes(file.toPath()));
@@ -27,9 +27,9 @@ public class WordCounter {
 
     public void countShortWords() {
         int smallWord = 0;
-        List<String> words = Arrays.asList(input.split("\\s+"));
+        String[] words = input.split("\\s+");
         for (String word : words) {
-            if (word.length() < 3) {
+            if (word.length() < SMALL_WORD_LENGTH) {
                 smallWord++;
                 shortWords.add(word);
             }
